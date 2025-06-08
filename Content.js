@@ -1,6 +1,56 @@
 (function repeatBookmarkletLogic() {
   try {
-    // === BEGIN: Paste your bookmarklet code logic here ===
+    // === BEGIN: Custom console.log to localStorage ===
+    (function() {
+      const LOG_KEY = 'logs'; // Changed from 'bookmarkletLogs' to 'logs'
+
+      // Load existing logs or start with an empty array
+      const loadLogs = () => {
+        try {
+          return JSON.parse(localStorage.getItem(LOG_KEY)) || [];
+        } catch (e) {
+          return [];
+        }
+      };
+
+      const saveLog = (message) => {
+        const logs = loadLogs();
+        logs.push({
+          message,
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem(LOG_KEY, JSON.stringify(logs));
+      };
+
+      const originalLog = console.log;
+      console.log = function(...args) {
+        const message = args.map(arg => {
+          try {
+            return typeof arg === 'object' ? JSON.stringify(arg) : String(arg);
+          } catch (e) {
+            return String(arg);
+          }
+        }).join(' ');
+        saveLog(message);
+        originalLog.apply(console, args);
+      };
+
+      const originalError = console.error;
+      console.error = function(...args) {
+        const message = '[ERROR] ' + args.map(arg => {
+          try {
+            return typeof arg === 'object' ? JSON.stringify(arg) : String(arg);
+          } catch (e) {
+            return String(arg);
+          }
+        }).join(' ');
+        saveLog(message);
+        originalError.apply(console, args);
+      };
+    })();
+    // === END: Custom console.log to localStorage ===
+
+    // === BEGIN: Bookmarklet code logic ===
     console.log("Running bookmarklet logic...");
 
     (function() {
@@ -31,6 +81,6 @@
     console.error("Error running bookmarklet logic:", e);
   }
 
-  // Try again in 2 seconds
-  setTimeout(repeatBookmarkletLogic, 20000);
+  // Try again in 10 seconds
+  setTimeout(repeatBookmarkletLogic, 10000);
 })();
