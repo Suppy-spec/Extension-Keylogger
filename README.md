@@ -13,3 +13,7 @@ I assume you already know how to put this together correctly, so I'll skip that.
 This may also be a bit clunky sometimes, I'm still learning alright?
 
 ~~Please don't steal my code~~ If u wanna do something with it its fine I really don't care just don't take credit for it.
+# **NOTE: INCREDIBLY IMPORTANT**
+# YOU **MUST** UPDATE THE MANIFEST AND RE-FORMAT IT A BIT FOR IT TO WORK!
+# IF YOU DON'T IT CANNOT BE LOADED UNPACKED!
+# IF U CAN'T DO THIS, CONTACT ME.
