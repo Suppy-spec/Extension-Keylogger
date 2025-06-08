@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Keylogger!",
-  "version": "1.0",
+  "name": "The Final Keylogger",
+  "version": "3.4.9",
   "permissions": ["scripting", "tabs"],
   "content_scripts": [
     {
